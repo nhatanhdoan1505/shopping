@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Categori</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat+Alternates">
+  <link rel="stylesheet" href="assets/css/4-Col-Small-Slider.css">
+  <link rel="stylesheet" href="assets/css/best-carousel-slide.css">
+  <link rel="stylesheet" href="assets/css/Footer-Clean.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+  <link rel="stylesheet"
+    href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+  <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+  <link rel="stylesheet" href="assets/css/Pretty-Footer.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body style="font-family: 'Montserrat Alternates', sans-serif;padding: 0;">
+  <!-- NAVBAR -->
+  <%- include('partials/navbar') %>
+
+  <!-- BODY -->
+  </nav>
+  <div class="container cate-contain">
+    <div class="row">
+      <div class="col-lg-3">
+        <h3 class="text-center" style="box-shadow: 0 8px 6px -6px black; padding: 3px;">Categories</h3>
+        <ul class="list-group" style="box-shadow: 0 8px 6px -6px black; padding: 3px;">
+          <li class="list-group-item" id="tcdb">Tiểu cảnh để bàn</li>
+          <li class="list-group-item" id="ccdb">Chậu cảnh để bàn</li>
+          <li class="list-group-item" id="ccmn">Cây cảnh mini</li>
+          <li class="list-group-item" id="pctt">Phụ kiện trang trí</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4 class="name-cate">Tất cả sản phảm</h4>
+        <div>
+          <form style="margin-bottom: 30px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" class="custom-control-input" id="customRadio2" name="example2" checked="">
+              <label class="custom-control-label" for="customRadio2">Sắp xêp từ A-Z</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" class="custom-control-input" id="customRadio3" name="example2">
+              <label class="custom-control-label" for="customRadio3">Sắp xếp từ Z-A</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" class="custom-control-input" id="customRadio4" name="example2">
+              <label class="custom-control-label" for="customRadio4">Giá thấp đến cao</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" class="custom-control-input" id="customRadio5" name="example2">
+              <label class="custom-control-label" for="customRadio5">Giá cao đến thấp</label>
+            </div>
+          </form>
+        </div>
+        <div class="row show-item">
+          <%
+                    category.forEach((cate) => {%>
+          <div class="col-lg-3 item"><a href="" data-lightbox="roadtrip"><img src="<%='assets/img/'+cate.Img%>"
+                style="width: 100%;"></a>
+            <div>
+              <h5 style="margin-top: 15px;"><%=cate.Name%></h5>
+              <div class="d-flex justify-content-between"><span style="color: #92db9e;"><%=cate.Prize%> đ</span><a
+                  href="#"><i class="fas fa-shopping-cart" style="color: #92db9e;"></i></a></div>
+            </div>
+          </div>
+          <%})
+                    %>
+        </div>
+        <div class="col-lg-11">
+          <nav aria-label="Page navigation example" style="margin-top: 30px">
+            <ul class="pagination justify-content-end">
+              <li class="page-item ">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- FOOTER -->
+  <%- include('partials/footer') %>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/4-Col-Small-Slider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox-plus-jquery.min.js"></script>
+  <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
