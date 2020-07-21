@@ -1,0 +1,173 @@
+const express = require('express');
+const router = express.Router();
+const multer = require('multer')
+const {
+    ensureAuthenticated,
+    forwardAuthenticated
+} = require('../config/auth');
+const {
+    authenticate
+} = require('passport');
+const Categories = require("../model/category");
+const {
+    route
+} = require('.');
+// Set storage engine
+const storage = multer.diskStorage({
+    destination: './public/assets/img',
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+
+})
+// Init upload
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('img')
+// Check file input
+function checkFileType(file, cb) {
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Images Only!');
+    }
+}
+
+// Home Page
+router.get('/all', forwardAuthenticated, (req, res) => {
+    Categories.find({}, (err, cate) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin', {
+                category: cate
+            })
+        }
+    })
+})
+
+// About Page
+router.get('/tcdb', (req, res) => {
+    Categories.find({
+        Type: 'tcdb'
+    }, (err, cate) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin', {
+                category: cate
+            })
+        }
+    })
+})
+
+// Contact Page
+router.get('/ccdb', (req, res) => {
+    Categories.find({
+        Type: 'ccdb'
+    }, (err, cate) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin', {
+                category: cate
+            })
+        }
+    })
+})
+
+// Category Page
+router.get('/ccmn', (req, res) => {
+    Categories.find({
+        Type: 'ccmn'
+    }, (err, cate) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin', {
+                category: cate
+            })
+        }
+    })
+})
+
+// Category Page
+router.get('/pktt', (req, res) => {
+    Categories.find({
+        Type: 'pktt'
+    }, (err, cate) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('admin', {
+                category: cate
+            })
+        }
+    })
+})
+
+router.post('/', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            Categories.find({}, (error, cate) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    res.render('admin', {
+                        msg: err,
+                        category: cate
+                    })
+                }
+            })
+        } else {
+            if (req.file == undefined) {
+                Categories.find({}, (error, cate) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.render('admin', {
+                            msg: "Error: No File Selected!",
+                            category: cate
+                        })
+                    }
+                })
+            } else {
+                const cate = new Categories({
+                    Name: req.body.name,
+                    Prize: Number(req.body.prize),
+                    Img: req.file.filename,
+                    Type: req.body.type
+                })
+
+                cate.save((err) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Success");
+                        Categories.find({}, (err, cate) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.render('admin', {
+                                    category: cate
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    })
+})
+
+module.exports = router;
