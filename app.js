@@ -3,8 +3,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport');
 const session = require('express-session');
+var cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-const path = require('path')
 const Admin = require('./model/admin')
 const {
     escapeXML
@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+app.use(cookieParser());
+
 // Passport Config
 require('./config/passport')(passport);
 
@@ -35,6 +37,12 @@ app.use(
         saveUninitialized: true
     })
 );
+
+// res.locals is an object passed to hbs engine
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
 
 // MongoDB Connection
 require('./mongooes/mongooes')

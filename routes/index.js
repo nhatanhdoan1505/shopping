@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Cart = require('../model/cart')
 const {
     ensureAuthenticated,
     forwardAuthenticated
@@ -7,32 +8,82 @@ const {
 const {
     authenticate
 } = require('passport');
-const Categories = require("../model/category")
+const Categories = require("../model/product")
 
 // Home Page
 router.get('/', forwardAuthenticated, (req, res) => {
-    Categories.find({Type : 'tcdb'})
-    .then(tcdb => {
-        cTcdb = tcdb.length
-        Categories.find({Type : 'ccdb'})
-        .then(ccdb => {
-            cCcdb = ccdb.length
-            Categories.find({Type : 'ccmn'})
-            .then(ccmn => {
-                cCcmn = ccmn.length
-                Categories.find({Type : 'pktt'})
-                .then(pktt => {
-                    cPktt = pktt.length
-                    res.render('home', {
-                        tcdb : cTcdb,
-                        ccdb : cCcdb,
-                        ccmn : cCcmn,
-                        pktt : cPktt
-                    })
-                })
-            })
+    Categories.find({
+            Type: 'tcdb'
         })
-    })
+        .then(tcdb => {
+            cTcdb = tcdb.length
+            Categories.find({
+                    Type: 'ccdb'
+                })
+                .then(ccdb => {
+                    cCcdb = ccdb.length
+                    Categories.find({
+                            Type: 'ccmn'
+                        })
+                        .then(ccmn => {
+                            cCcmn = ccmn.length
+                            Categories.find({
+                                    Type: 'pktt'
+                                })
+                                .then(pktt => {
+                                    cPktt = pktt.length
+                                    Categories.find({}, )
+                                        .then(cate => {
+                                            res.render('home', {
+                                                tcdb: cTcdb,
+                                                ccdb: cCcdb,
+                                                ccmn: cCcmn,
+                                                pktt: cPktt,
+                                                category: cate.slice(0, 4)
+                                            })
+                                        })
+                                })
+                        })
+                })
+        })
+})
+
+
+router.get('/home', forwardAuthenticated, (req, res) => {
+    Categories.find({
+            Type: 'tcdb'
+        })
+        .then(tcdb => {
+            cTcdb = tcdb.length
+            Categories.find({
+                    Type: 'ccdb'
+                })
+                .then(ccdb => {
+                    cCcdb = ccdb.length
+                    Categories.find({
+                            Type: 'ccmn'
+                        })
+                        .then(ccmn => {
+                            cCcmn = ccmn.length
+                            Categories.find({
+                                    Type: 'pktt'
+                                })
+                                .then(pktt => {
+                                    cPktt = pktt.length
+                                    Categories.find({}, )
+                                        .then(cate => {
+                                            res.render('home', {
+                                                tcdb: cTcdb,
+                                                ccdb: cCcdb,
+                                                ccmn: cCcmn,
+                                                pktt: cPktt,
+                                                category: cate.slice(0, 4)
+                                            })
+                                        })
+                                })
+                        })
+                })
+        })
 })
 
 // About Page
@@ -57,5 +108,20 @@ router.get('/manage', ensureAuthenticated, (req, res) => {
         }
     })
 })
+
+
+router.get('/add/:id', function (req, res, next) {
+    var productId = req.params.name;
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+    const product = Categories.find({Id: productId})
+        .then(cate => {
+            cate.filter((item) => {
+                return item.Id == productId
+            })
+            cart.add(product[0], productId);
+            req.session.cart = cart;
+            res.redirect('/');
+        })
+});
 
 module.exports = router;

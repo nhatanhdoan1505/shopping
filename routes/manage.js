@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer')
+const path = require('path')
 const {
     ensureAuthenticated,
     forwardAuthenticated
@@ -8,7 +9,7 @@ const {
 const {
     authenticate
 } = require('passport');
-const Categories = require("../model/category");
+const Categories = require("../model/product");
 const {
     route
 } = require('.');
@@ -144,6 +145,7 @@ router.post('/', (req, res) => {
             } else {
                 const cate = new Categories({
                     Name: req.body.name,
+                    Id: req.body.id,
                     Prize: Number(req.body.prize),
                     Img: req.file.filename,
                     Type: req.body.type

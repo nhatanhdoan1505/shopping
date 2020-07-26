@@ -101,42 +101,20 @@
             <h3 class="text-dark" style="margin-bottom: 15px;">Plant on Table</h3>
         </a>
         <div class="row">
+            <%
+                    category.forEach((cate) => {%>
             <div class="col-lg-3"><a href="assets/img/cay-thinh-vuong-trong-nuoc.jpg" data-lightbox="roadtrip"><img
-                        src="assets/img/cay-thinh-vuong-trong-nuoc.jpg"></a>
+                        src="<%='/assets/img/'+cate.Img%>"></a>
                 <div>
-                    <h5 style="margin-top: 15px;">Cây lan Ý trong nước</h5>
-                    <div class="d-flex justify-content-between"><span style="color: #92db9e;">230.000đ</span><a
-                            href="#"><i class="fas fa-shopping-cart"
+                    <h5 style="margin-top: 15px;"><%=cate.Name%></h5>
+                    <div class="d-flex justify-content-between"><span style="color: #92db9e;"><%=cate.Prize%> đ</span><a
+                            href="/add/<%= cate.Name %>"><i class="fas fa-shopping-cart"
                                 style="margin-left: 0px;color: #92db9e;font-size: 20px;"></i></a></div>
                 </div>
             </div>
-            <div class="col-lg-3 plant"><a href="assets/img/cay-troc-bac-trong-nuoc.jpg" data-lightbox="roadtrip"><img
-                        src="assets/img/cay-troc-bac-trong-nuoc.jpg"></a>
-                <div>
-                    <h5 style="margin-top: 15px;">Cây tróc bạc trong nước</h5>
-                    <div class="d-flex justify-content-between"><span style="color: #92db9e;">160.000đ</span><a
-                            href="#"><i class="fas fa-shopping-cart"
-                                style="margin-left: 0px;color: #92db9e;font-size: 20px;"></i></a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 plant"><a href="assets/img/van-nien-thanh.jpg" data-lightbox="roadtrip"><img
-                        src="assets/img/van-nien-thanh.jpg"></a>
-                <div>
-                    <h5 style="margin-top: 15px;">Cây vạn niên thanh</h5>
-                    <div class="d-flex justify-content-between"><span style="color: #92db9e;">450.000đ</span><a
-                            href="#"><i class="fas fa-shopping-cart"
-                                style="margin-left: 0px;color: #92db9e;font-size: 20px;"></i></a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 plant"><a href="assets/img/cay-da-bup-do.jpg" data-lightbox="roadtrip"><img
-                        src="assets/img/cay-da-bup-do.jpg"></a>
-                <div>
-                    <h5 style="margin-top: 15px;">Cây búp đa đỏ</h5>
-                    <div class="d-flex justify-content-between"><span style="color: #92db9e;">470.000đ</span><a
-                            href="#"><i class="fas fa-shopping-cart"
-                                style="margin-left: 0px;color: #92db9e;font-size: 20px;"></i></a></div>
-                </div>
-            </div>
+
+            <%})
+                    %>
         </div>
     </div>
     <div class="categories-title categories-list" style="margin-top: 35px;">
