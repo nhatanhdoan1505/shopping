@@ -111,15 +111,12 @@ router.get('/manage', ensureAuthenticated, (req, res) => {
 
 
 router.get('/add/:id', function (req, res, next) {
-    var productId = req.params.name;
+    var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
-    const product = Categories.find({Id: productId})
+    Categories.find({Id: productId})
         .then(cate => {
-            cate.filter((item) => {
-                return item.Id == productId
-            })
-            cart.add(product[0], productId);
-            req.session.cart = cart;
+            cart.add(cate, cate.Id);
+            req.session.cart = cart;    
             res.redirect('/');
         })
 });

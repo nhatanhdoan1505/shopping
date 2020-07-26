@@ -12,11 +12,12 @@ module.exports = function Cart(cart) {
                 price: 0
             };
         }
-        console.log(cartItem);
         cartItem.quantity++;
-        cartItem.price = cartItem.item.price * cartItem.quantity;
+        console.log(cartItem.item[0].Prize);
+        cartItem.price = Number(cartItem.item[0].Prize) * cartItem.quantity;
         this.totalItems++;
         this.totalPrice += cartItem.item.price;
+        console.log(cartItem);
     };
 
     this.remove = function (id) {
