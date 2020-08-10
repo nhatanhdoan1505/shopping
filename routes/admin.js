@@ -15,7 +15,7 @@ router.get('/login', forwardAuthenticated, (req, res) => {
 });
 
 router.get('/', forwardAuthenticated, (req, res) => {
-  res.redirect('/login')
+  res.redirect('admin/login')
 })
 
 // Login
