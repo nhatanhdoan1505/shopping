@@ -14,6 +14,10 @@ router.get('/login', forwardAuthenticated, (req, res) => {
   res.render('login')
 });
 
+router.get('/', forwardAuthenticated, (req, res) => {
+  res.redirect('/login')
+})
+
 // Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {

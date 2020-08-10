@@ -162,9 +162,16 @@ router.post('/', (req, res) => {
                 if (error) {
                     console.log(error);
                 } else {
-                    res.render('admin', {
-                        msg: err,
-                        category: cate
+                    Order.find({}, (err, order) => {
+                        if(err){
+                            console.log(err)
+                        }else {
+                            res.render('admin', {
+                                msg: err,
+                                category: cate,
+                                order: order
+                            })
+                        }
                     })
                 }
             })
@@ -174,9 +181,16 @@ router.post('/', (req, res) => {
                     if (error) {
                         console.log(error);
                     } else {
-                        res.render('admin', {
-                            msg: "Error: No File Selected!",
-                            category: cate
+                        Order.find({}, (err, order) => {
+                            if(err){
+                                console.log(err)
+                            }else {
+                                res.render('admin', {
+                                    msg: "Error: No File Selected!",
+                                    category: cate,
+                                    order: order
+                                })
+                            }
                         })
                     }
                 })
@@ -204,7 +218,7 @@ router.post('/', (req, res) => {
                                     }else {
                                         res.render('admin', {
                                             category: cate,
-                                            order: order,
+                                            order: order
                                         })
                                     }
                                 })
