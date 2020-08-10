@@ -67,10 +67,10 @@
                         </form>
                     </div>
                     <div class="col-sm-11 col-md-11 col-lg-5 col-xl-5 list-item"
-                        style="margin-top: 20px;margin-right: 20px;padding-top: 20px;margin-left: 30px; max-height: 500px; overflow: auto;">
+                        style="margin-top: 20px;margin-right: 20px;padding-top: 20px;margin-left: 30px; max-height: 543px; overflow: auto;">
                         <h3 class="text-center">Items</h3>
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <h6>Name</h6>
                             </div>
                             <div class="col-4">
@@ -82,7 +82,7 @@
                         </div>
                         <%category.forEach((cate) => {%>
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <p><%= cate.Name%></p>
                             </div>
                             <div class="col-4">
@@ -99,9 +99,64 @@
                                 <div class="col-3">
                                     <p><%= cate.Prize%></p>
                             </div>
+                            <div class="col-1">
+                                <a href="/manage/delete/<%= cate.Id %>"><span class="fa fa-trash">
+                                </span></a>
+                        </div>
                         </div>
                         <%})%>
                     </div>
+                </div>
+                <div class="order cover">
+                    <div class="row text-left">
+                        <div class="col-lg-2">
+                            <h5 class="text-center">Name</h5>
+                        </div>
+                        <div class="col-lg-1">
+                            <h5 class="text-center">Phone</h5>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5 class="text-center">Email</h5>
+                        </div>
+                        <div class="col-lg-2">
+                            <h5 class="text-center">Date</h5>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5 class="text-center">Cart</h5>
+                        </div>
+                        <div class="col-lg-1">
+                            <h5 class="text-center">Total</h5>
+                        </div>
+                    </div>
+                    <%order.forEach((order) => {%>
+                    <div class="row text-left">
+                        <div class="col-lg-2">
+                            <p class="text-center"><%= order.Name%></p>
+                        </div>
+                        <div class="col-lg-1">
+                            <p class="text-center"><%= order.Phone%></p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-center"><%= order.Email%></p>
+                            </div>
+                            <div class="col-lg-2">
+                                <p class="text-center"><%= order.Date%><br></p>
+                            </div>
+                            <div class="col-lg-3">
+                                <%order.Item.forEach((cart) => {
+                                    %>
+                                <div class="text-center d-flex justify-content-between">
+                                    <span><%= cart.item.Name%></span><span><%= cart.quantity%></span>
+                                </div>
+                                <%
+                                })%>
+                        </div>
+                        <div class="col-lg-1">
+                            <p class="text-center"><%= order.Total%></p>
+                        </div>
+                    </div>
+                    <%
+                    })%>
                 </div>
             </div>
         </div>

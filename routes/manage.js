@@ -172,4 +172,15 @@ router.post('/', (req, res) => {
     })
 })
 
+router.get('/delete/:id', (req, res) => {
+    let productId = req.params.id
+    Categories.deleteOne({Id : productId}, (err) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/')
+        }
+    })
+})
+
 module.exports = router;

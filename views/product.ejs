@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Categori</title>
+  <title>Product</title>
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
   <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
@@ -33,10 +33,11 @@
       <div class="col-lg-3">
         <h3 class="text-center" style="box-shadow: 0 8px 6px -6px black; padding: 3px;">Categories</h3>
         <ul class="list-group" style="box-shadow: 0 8px 6px -6px black; padding: 3px;">
-          <li class="list-group-item" id="tcdb">Tiểu cảnh để bàn</li>
-          <li class="list-group-item" id="ccdb">Chậu cảnh để bàn</li>
-          <li class="list-group-item" id="ccmn">Cây cảnh mini</li>
-          <li class="list-group-item" id="pctt">Phụ kiện trang trí</li>
+          <li class="list-group-item" id="tcdb"><a href="/product">Tất cả sản phẩm</a></li>
+          <li class="list-group-item" id="tcdb"><a href="/product/tcdb">Tiểu cảnh để bàn</a></li>
+          <li class="list-group-item" id="ccdb"><a href="/product/ccdb">Chậu cảnh để bàn</a></li>
+          <li class="list-group-item" id="ccmn"><a href="/product/ccmn">Cây cảnh mini</a>></li>
+          <li class="list-group-item" id="pctt"><a href="/product/pktt">Phụ kiện trang trí</a></li>
         </ul>
       </div>
       <div class="col">
@@ -69,7 +70,7 @@
             <div>
               <h5 style="margin-top: 15px;"><%=cate.Name%></h5>
               <div class="d-flex justify-content-between"><span style="color: #92db9e;"><%=cate.Prize%> đ</span><a
-                  href="#"><i class="fas fa-shopping-cart" style="color: #92db9e;"></i></a></div>
+                  href="/add/<%= cate.Id %>"><i class="fas fa-shopping-cart" style="color: #92db9e;"></i></a></div>
             </div>
           </div>
           <%})

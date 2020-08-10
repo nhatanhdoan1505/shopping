@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Cart = require('../model/cart')
+const Order = require('../model/order')
 const {
     ensureAuthenticated,
     forwardAuthenticated
@@ -102,23 +103,84 @@ router.get('/manage', ensureAuthenticated, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
             })
+            
         }
     })
 })
 
 
-router.get('/add/:id', function (req, res, next) {
-    var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart : {});
-    Categories.find({Id: productId})
+router.get('/add/:id', (req, res, next) => {
+    let productId = req.params.id;
+    let cart = new Cart(req.session.cart ? req.session.cart : {});
+    Categories.find({
+            Id: productId
+        })
         .then(cate => {
-            cart.add(cate, cate.Id);
-            req.session.cart = cart;    
-            res.redirect('/');
+            cart.add(cate[0], cate[0].Id);
+            req.session.cart = cart;
+            res.redirect('/product');
+            console.log(req.session.cart.items)
         })
 });
+
+router.get('/cart', (req, res) => {
+    if (!req.session.cart) {
+        return res.render('cart', {
+            products: null
+        });
+    }
+    let cart = new Cart(req.session.cart);
+    res.render('cart', {
+        title: 'NodeJS Shopping Cart',
+        products: cart.getItems(),
+        totalPrice: cart.totalPrice
+    });
+})
+
+router.get('/remove/:id', (req, res) => {
+    let productId = req.params.id;
+    let cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.remove(productId);
+    req.session.cart = cart;
+    res.redirect('/cart');
+})
+
+router.get('/custumer', (req, res) => {
+    res.render('custumer')
+})
+
+router.post('/custumer', (req, res) => {
+    let cart = new Cart(req.session.cart);
+    let products = cart.getItems()
+    const constDate = new Date()
+    let date = constDate.toDateString()
+    let order = new Order({
+        Name: req.body.name,
+        Item: products,
+        Phone: req.body.phone,
+        Email: req.body.email,
+        Total: Number(cart.totalPrice),
+        Date: date
+    }) 
+
+    order.save((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Success");
+            res.redirect('/')
+        }
+    })
+})
 
 module.exports = router;
