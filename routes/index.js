@@ -97,27 +97,6 @@ router.get('/contact', (req, res) => {
     res.render('contact')
 })
 
-// Admin Manage Page
-router.get('/manage', ensureAuthenticated, (req, res) => {
-    Categories.find({}, (err, cate) => {
-        if (err) {
-            console.log(err);
-        } else {
-            Order.find({}, (err, order) => {
-                if(err){
-                    console.log(err)
-                }else {
-                    res.render('admin', {
-                        category: cate,
-                        order: order,
-                    })
-                }
-            })
-            
-        }
-    })
-})
-
 
 router.get('/add/:id', (req, res, next) => {
     let productId = req.params.id;

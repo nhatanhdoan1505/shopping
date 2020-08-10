@@ -10,6 +10,7 @@ const {
     authenticate
 } = require('passport');
 const Categories = require("../model/product");
+const Order = require('../model/order')
 const {
     route
 } = require('.');
@@ -45,17 +46,26 @@ function checkFileType(file, cb) {
 }
 
 // Home Page
-router.get('/all', forwardAuthenticated, (req, res) => {
+
+router.get('/', ensureAuthenticated, (req, res) => {
     Categories.find({}, (err, cate) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
-            })
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
+            }) 
         }
     })
 })
+
 
 // About Page
 router.get('/tcdb', (req, res) => {
@@ -65,8 +75,15 @@ router.get('/tcdb', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
             })
         }
     })
@@ -80,8 +97,15 @@ router.get('/ccdb', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
             })
         }
     })
@@ -95,8 +119,15 @@ router.get('/ccmn', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
             })
         }
     })
@@ -110,8 +141,15 @@ router.get('/pktt', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('admin', {
-                category: cate
+            Order.find({}, (err, order) => {
+                if(err){
+                    console.log(err)
+                }else {
+                    res.render('admin', {
+                        category: cate,
+                        order: order,
+                    })
+                }
             })
         }
     })
@@ -160,8 +198,15 @@ router.post('/', (req, res) => {
                             if (err) {
                                 console.log(err);
                             } else {
-                                res.render('admin', {
-                                    category: cate
+                                Order.find({}, (err, order) => {
+                                    if(err){
+                                        console.log(err)
+                                    }else {
+                                        res.render('admin', {
+                                            category: cate,
+                                            order: order,
+                                        })
+                                    }
                                 })
                             }
                         })
