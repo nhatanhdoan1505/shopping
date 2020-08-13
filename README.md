@@ -15,3 +15,5 @@ Run:
 Command line:
 * node install
 * node app.js
+Brower:
+localhost:50000
